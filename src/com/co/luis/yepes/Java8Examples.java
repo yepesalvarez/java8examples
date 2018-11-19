@@ -1,32 +1,56 @@
 package com.co.luis.yepes;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Java8Examples {
 	
-	public static void main(String args[]) {
-		
-	}
-	
 // 1. Return the sum from the numbers among a given rank ----------------------------------------
 	public int numbersBetweenRank(int initialRank, int finalRank) {
-		return finalRank;
+			return IntStream
+					.rangeClosed(initialRank, finalRank)
+					.sum();
 	}
 // 2. Return the sum from a given double numbers array using reduce ----------------------------
 	public double reduceSum(double[] numbers) {
-		return 0;	
+		if(numbers != null)
+			return Arrays.stream(numbers)
+				.reduce(0.0, (a, b) -> a + b);
+		throw new NullPointerException();
 	}
 // 3. Return the average from the numbers among a given rank, skip the n first elements ---------
 	public double averageNumber(int initialRank, int finalRank, int n) {
-		return 0;
+		if (n < finalRank - initialRank)
+			return IntStream
+					.rangeClosed(initialRank, finalRank)
+					.skip(n)
+					.average()
+					.getAsDouble();
+		throw new NullPointerException();
 	}
 // 4. Order and return the first element of a given words list ----------------------------------
 	public String firstOrderedWord(List<String> words) {
-		return null;
+		if(words != null)
+			return words.stream()
+					.sorted(String::compareToIgnoreCase)
+					.findFirst()
+					.orElse(null);
+		throw new NullPointerException();
 	}
-// 5. Return the bigger square from a given floating numbers array ------------------------------
-	public float biggerFloatSquare(float[] numbers) {
-		return 0;
+// 5. Return the bigger square from a given decimal numbers array ------------------------------
+	public double biggerDecimalSquare(Double[] numbers) {
+		if(numbers != null){
+			if(numbers.length > 0) {
+				return Stream.of(numbers)
+						.map(x -> Math.pow( x, 2))
+						.max(Comparator.comparing(Double::valueOf))
+						.get();
+			}else{	throw new NoSuchElementException();}
+		}else{throw new NullPointerException();}
 	}
 // 6.  Filter by prefix, order and return the words array changed from the given one ------------
 	public String[] orderedFilteredWords(String[] words, String prefix) {

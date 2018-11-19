@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,17 +23,17 @@ class Java8ExamplesTest {
 	void testNumbersBetweenRank() {
 		int initialRank = 1;
 		int finalRank = 10;
-		int expectedResult = 55;
-		int actualResult = java8Examples.numbersBetweenRank(initialRank, finalRank); 
-		assertEquals(expectedResult, actualResult);
+		int expected = 55;
+		int actual = java8Examples.numbersBetweenRank(initialRank, finalRank); 
+		assertEquals(expected, actual);
 	}
 // 2. Return the sum from a given double numbers array using reduce -----------------------------
 	@Test
 	void testReduceSum() {
 		double[] numbers = {2.5, 3.5, 6.0, 1.2};
-		double expectedResult = 13.2;
-		double actualResult = java8Examples.reduceSum(numbers);
-		assertEquals(expectedResult, actualResult);
+		double expected = 13.2;
+		double actual = java8Examples.reduceSum(numbers);
+		assertEquals(expected, actual);
 	}
 // 3. Return the average from the numbers among a given rank, skip the n first elements ---------
 	@Test
@@ -40,42 +41,83 @@ class Java8ExamplesTest {
 		int initialRank = 2;
 		int finalRank = 10;
 		int steps = 5; 
-		double expectedResult = 8.5;
-		double actualResult = java8Examples.averageNumber(initialRank, finalRank, steps);
-		assertEquals(expectedResult, actualResult);
+		double expected = 8.5;
+		double actual = java8Examples.averageNumber(initialRank, finalRank, steps);
+		assertNotNull(actual);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testAverageNumberException() {
+		int initialRank = 2;
+		int finalRank = 10;
+		int steps = 12; 
+		assertThrows(NullPointerException.class, () -> {
+			java8Examples.averageNumber(initialRank, finalRank, steps);
+		});
 	}
 // 4. Order and return the first element of a given words list ----------------------------------
 	@Test
 	void testFirstOrderedWord() {
 		List<String> words = Arrays.asList("soccer","house", "lorem", "Ipsum");
-		String expectedResult = "house";
-		String actualResult = java8Examples.firstOrderedWord(words);
-		assertEquals(expectedResult, actualResult);
+		String expected = "house";
+		String actual = java8Examples.firstOrderedWord(words);
+		assertEquals(expected, actual);
 	}
-// 5. Return the bigger square from a given floating numbers array ------------------------------
+	
 	@Test
-	void testBiggerFloatSquare() {
-		float[] numbers = {3.05f, 4.201f, 7.66f};
-		float expectedResult = 58.6756f;
-		float actualResult = java8Examples.biggerFloatSquare(numbers);
-		assertEquals(expectedResult, actualResult);
+	void testFirstOrderedWordNull() {
+		List<String> words = null;
+		assertThrows(NullPointerException.class, () -> {
+			java8Examples.firstOrderedWord(words);
+		});
+	}
+	
+	@Test
+	void testFirstOrderedWordEmpty() {
+		List<String> words = Arrays.asList();
+		assertNull(java8Examples.firstOrderedWord(words));
+	}
+// 5. Return the bigger square from a given decimal numbers array ------------------------------
+	@Test
+	void testBiggerDecimalSquare() {
+		Double[] numbers = {3.05, 4.201, 7.66};
+		double expected = 58.6756;
+		double actual = java8Examples.biggerDecimalSquare(numbers);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testBiggerDecimalSquareEmpty() {
+		Double[] numbers = {};
+		assertThrows(NoSuchElementException.class, () -> {
+			java8Examples.biggerDecimalSquare(numbers);
+		});
+	}
+	
+	@Test
+	void testBiggerDecimalSquareNull() {
+		Double[] numbers = null;
+		assertThrows(NullPointerException.class, () -> {
+			java8Examples.biggerDecimalSquare(numbers);
+		});
 	}
 // 6.  Filter by prefix, order and return the words array changed from the given one ------------
 	@Test
 	void testOrderedFilteredWords() {
 		String[] words = {"airpod", "biscuit", "airforce", "zelta", "airplane", "java", "airport"};
 		String prefix = "airp";
-		String[] expectedResult = {"airplane", "airpod", "airport"};
-		String[] actualResult = java8Examples.orderedFilteredWords(words, prefix);
-		assertArrayEquals(expectedResult, actualResult);
+		String[] expected = {"airplane", "airpod", "airport"};
+		String[] actual = java8Examples.orderedFilteredWords(words, prefix);
+		assertArrayEquals(expected, actual);
 	}
 // 7. Return the amount of words with more than four letters in a referenced text file ----------
 	@Test
 	void testBiggerThan4() {
 		String uriTxt = "bin/testassets/bands.txt";
-		int expectedResult = 26;
-		int actualResult = java8Examples.biggerThan4(uriTxt);
-		assertEquals(expectedResult, actualResult);
+		int expected = 26;
+		int actual = java8Examples.biggerThan4(uriTxt);
+		assertEquals(expected, actual);
 	}
 /* 8. Return from a referenced text file, in uppercase,------------------------------------------
  * 	the list of words that end with a given postfix ---------------------------------------------
@@ -84,25 +126,25 @@ class Java8ExamplesTest {
 	void testEndWithPostfix() {
 		String uriTxt = "bin/testassets/bands.txt";
 		String postfix = "es";
-		List<String> expectedResult = Arrays.asList("BEATLES", "STONES", "RAMONES");
-		List<String> actualResult = java8Examples.endWithPostfix(uriTxt, postfix); 
-		assertIterableEquals(expectedResult, actualResult);
+		List<String> expected = Arrays.asList("BEATLES", "STONES", "RAMONES");
+		List<String> actual = java8Examples.endWithPostfix(uriTxt, postfix); 
+		assertIterableEquals(expected, actual);
 	}
 // 9. Return how many rows with numbers does a referenced CSV file has --------------------------
 	@Test
 	void testRowsWithNumbers() {
 		String uriCsv = "bin/testassets/bands.csv";
-		int expectedResult = 2;
-		int actualResult = java8Examples.rowsWithNumbers(uriCsv);
-		assertEquals(expectedResult, actualResult);
+		int expected = 2;
+		int actual = java8Examples.rowsWithNumbers(uriCsv);
+		assertEquals(expected, actual);
 	}
 // 10. Return an array with all prime numbers from a referenced CSV file ------------------------
 	@Test
 	void testPrimeNumbers() {
 		String uriCsv = "bin/testassets/numbers.csv";
-		int[] expectedResult = {2, 7, 3, 11, 105};
-		int[] actualResult = java8Examples.primeNumbers(uriCsv);
-		assertArrayEquals(expectedResult, actualResult);
+		int[] expected = {2, 7, 3, 11, 105};
+		int[] actual = java8Examples.primeNumbers(uriCsv);
+		assertArrayEquals(expected, actual);
 	}
 /* 11. Return a String with the IntSummaryStatistics from the people's ages in a given Person ---
  * list. Person class should have id, name, age properties. Skip those with repeated id --------- 
