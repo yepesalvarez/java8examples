@@ -1,7 +1,7 @@
-The Beatles, The Rolling Stones, Blink 182
-U2, The Grateful Dead, Velvet Underground, Sum 41
-Led Zeppelin, Ramones, Pink Floyd, Dinosaur Jr.
-Bob Marley and the Wailers, Sly and the Family Stone
-Kiss, Metallica, Iron Maiden, Michael jackson, Galaxies
-Deerhunter, The Dear Hunter, Megadeath, Stone sour
-The Dinosaurs, Slipknot, Galaxie 500
+The Beatles The Rolling Stones Blink 182
+U2 The Grateful Dead Velvet Underground Sum 41
+Led Zeppelin Ramones Pink Floyd Dinosaur Jr.
+Bob Marley and the Wailers Sly and the Family Stone
+Kiss Metallica Iron Maiden Michael jackson Galaxies
+Deerhunter The Dear Hunter Megadeath Stone sour
+The Dinosaurs Slipknot Galaxie 500
